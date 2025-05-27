@@ -7,7 +7,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Module({
   imports: [
-    PassportModule,                                   // provee AuthGuard
+    PassportModule,
     JwtModule.register({                              // configura JWT
       secret: process.env.JWT_SECRET || 'tu_secreto', // tu clave aquí o en .env
       signOptions: { expiresIn: '1h' },

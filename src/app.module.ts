@@ -12,4 +12,4 @@ import { AuthModule } from './auth/auth.module';  // importamos el módulo de au
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
