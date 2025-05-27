@@ -1,12 +1,19 @@
+// src/auth/auth.module.ts
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SettingsController } from './settings/settings.controller';
-import { SettingsService } from './settings/settings.service';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Module({
-  imports: [],
-  controllers: [AppController, SettingsController],
-  providers: [AppService, SettingsService],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
+  providers: [JwtStrategy, JwtAuthGuard],
+  exports: [JwtAuthGuard],
 })
-export class AppModule {}
+export class AuthModule {}
