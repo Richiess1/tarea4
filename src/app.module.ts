@@ -28,4 +28,4 @@ import { AppService } from './app.service';
   controllers: [SettingsController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

@@ -8,11 +8,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: "claver_secreta", // o tu clave JWT
     });
   }
 
-  async validate(payload: any) {
-    return { userId: payload.sub, name: payload.name, email: payload.email };
-  }
+    async validate(payload: any) {
+        return { userId: payload.sub, name: payload.name, email: payload.email };
+    }
 }
