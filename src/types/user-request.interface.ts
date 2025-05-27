@@ -1,0 +1,11 @@
+// src/types/user-request.interface.ts
+import { Request } from 'express';
+
+export interface UserRequest extends Request {
+  user: {
+    userId: number;
+    email: string;
+    name: string;
+  };
+}
+
