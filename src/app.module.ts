@@ -1,20 +1,15 @@
-// src/auth/auth.module.ts
+// src/app.module.ts
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './auth/jwt.strategy';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { SettingsController } from './settings/settings.controller';
+import { AuthModule } from './auth/auth.module';  // importamos el módulo de auth
 
 @Module({
   imports: [
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
-    }),
+    AuthModule,          // ahora SettingsController podrá usar JwtAuthGuard
   ],
-  providers: [JwtStrategy, JwtAuthGuard],
-  exports: [JwtAuthGuard],
+  controllers: [
+    SettingsController,  // tu controller /settings
+  ],
+  providers: [],
 })
-export class AuthModule {}
 export class AppModule {}
