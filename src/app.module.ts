@@ -9,6 +9,8 @@ import { Task } from './tasks/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { Avanzado3Module } from './avanzado-3/avanzado-3.module';
+import { Avanzado3Module } from './avanzado-3/avanzado-3.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -26,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule, 
     TasksModule,
     AuthModule,
+    Avanzado3Module,
   ],
   controllers: [SettingsController],
   providers: [AppService],
