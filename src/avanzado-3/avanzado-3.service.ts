@@ -20,7 +20,7 @@ export class Avanzado3Service {
     return `This action updates a #${id} avanzado3`;
   }
 
-  remove(id: number) {
+  delete(id: number) {
     return `This action removes a #${id} avanzado3`;
   }
 }
