@@ -8,6 +8,8 @@ import { User } from './users/user.entity';
 import { Task } from './tasks/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { AppService } from './app.service';
         host: 'localhost',
         port: 5432,
         username: 'postgres',
-        password: 'astri',
+        password: 'suser',
         database: 'tarea4',
         entities: [User, Task],
         synchronize: true,
