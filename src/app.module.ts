@@ -9,7 +9,6 @@ import { Task } from './tasks/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -25,6 +24,7 @@ import { AppService } from './app.service';
     UsersModule, 
     TasksModule,
     AuthModule,
+    Avanzado3Module,
   ],
   controllers: [SettingsController],
   providers: [AppService],
