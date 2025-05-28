@@ -8,8 +8,7 @@ import { User } from './users/user.entity';
 import { Task } from './tasks/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { AuthModule } from './auth/auth.module';
+
 
 @Module({
   imports: [
