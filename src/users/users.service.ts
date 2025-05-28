@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -9,10 +10,17 @@ export class UsersService {
         @InjectRepository(User)
         private usersRepository: Repository<User>,
     ) { }
+    
+    //NO TOCAR, NADA, NADA//
+    async createUser( dto: CreateUserDto): Promise<User> {
+        const correoExistente = await this.usersRepository.findOneBy({email: dto.email})
+        if (correoExistente) {
+            throw new UnauthorizedException('El correo ya está registrado');
+        } else {
+            const newUser = this.usersRepository.create(dto);
+            return this.usersRepository.save(newUser);
+        }
 
-    async createUser(name: string, email: string): Promise<User> {
-        const newUser = this.usersRepository.create({ name, email });
-        return this.usersRepository.save(newUser);
     }
 
     async findAll(): Promise<User[]> {

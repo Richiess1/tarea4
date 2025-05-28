@@ -7,8 +7,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class SettingsController {
   @UseGuards(JwtAuthGuard)
   @Get()
-  getSettings(@Req() req: UserRequest) {
-    const user = req.user;
+  getSettings(@Req() req) {
+    const user = req.user as any;
     return {
       mensaje: `Bienvenido a tu configuración, ${user.name}`,
       email: user.email,

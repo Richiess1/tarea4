@@ -8,7 +8,7 @@ export class PerfilController {
   @UseGuards(JwtAuthGuard)
   @Get()
   getPerfil(@Req() req: Request) {
-    const user = req.user;
+    const user = req.user as any;
     return {
       mensaje: `Bienvenido a tu perfil, ${user.email}`,
       datos: user,
