@@ -1,18 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
+import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt'; 
 
 @Injectable()
-export class AuthService {
-  constructor(private jwtService: JwtService) {}
+export class AuthService { //NO TOCAR
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+    private jwtService: JwtService) {}
 
-  validateUser(email: string, password: string): any {
-    if (email === 'admin@api' && password === '1234') {
-      return { id:1 ,email };
+  //NO TOCAR//
+  async validateUser( email: string, password: string): Promise<any> {
+
+    const user = await this.usersRepository.findOneBy({email})
+    if (!user) throw new NotFoundException('Usuario no encontrado')
+
+    const passportValidate = await bcrypt.compare(password, user.password )
+    if(!passportValidate) {
+      throw new UnauthorizedException('Contrasenia incorrecta')
     }
-    return null;
+
+    return { id: user.id, email: user.email }
 
   }
 
+  //NO TOCAR
   login(user: any) {
     const payload = { email: user.email, sub: user.id };
     return {

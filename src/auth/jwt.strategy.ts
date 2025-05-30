@@ -3,7 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 
-@Injectable()  // ← Faltaba este decorador
+@Injectable() //NO TOCAR
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor() {
         super({
@@ -12,8 +12,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             secretOrKey: 'clave_secreta',
         });
     }
-
+    
+    //NO TOCAR
     async validate(payload: any) {
-        return { userId: payload.sub, email: payload.email }; // ojo: era "email", no "Email"
+        return { userId: payload.sub, email: payload.email }; 
     }
 }

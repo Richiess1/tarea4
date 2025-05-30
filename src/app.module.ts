@@ -16,7 +16,7 @@ import { AppService } from './app.service';
         host: 'localhost',
         port: 5432,
         username: 'postgres',
-        password: 'suser',
+        password: 'astri',
         database: 'tarea4',
         entities: [User, Task],
         synchronize: true,
