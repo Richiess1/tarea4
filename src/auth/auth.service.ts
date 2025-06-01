@@ -23,13 +23,13 @@ export class AuthService { //NO TOCAR
       throw new UnauthorizedException('Contrasenia incorrecta')
     }
 
-    return { id: user.id, email: user.email }
+    return { id: user.id, name:user.name ,email: user.email }
 
   }
 
   //NO TOCAR
   login(user: any) {
-    const payload = { email: user.email, sub: user.id };
+    const payload = { name:user.name, email:user.email, sub:user.id };
     return {
       access_token: this.jwtService.sign(payload),
     };
