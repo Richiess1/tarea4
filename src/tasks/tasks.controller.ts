@@ -1,9 +1,11 @@
-import { Controller, Post, Get, Param, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Put, Delete, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTasksDto } from './dto/create-tasks.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard) //protege el controllador, pide un TOKEN
 @ApiTags('tasks')
 @Controller('tasks')
 export class TasksController {

@@ -24,7 +24,6 @@ import { AppService } from './app.service';
     UsersModule, 
     TasksModule,
     AuthModule,
-    // Avanzado3Module,
   ],
   controllers: [SettingsController],
   providers: [AppService],

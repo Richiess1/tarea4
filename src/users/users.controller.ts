@@ -6,8 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
-@ApiTags('usuarios')
+@UseGuards(JwtAuthGuard) //protege el controllador, pide un TOKEN
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
