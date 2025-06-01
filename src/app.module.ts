@@ -8,6 +8,8 @@ import { User } from './users/user.entity';
 import { Task } from './tasks/task.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
+import { ProductoModule } from './producto/producto.module';
+import { Producto } from './producto/producto.entity';
 
 @Module({
   imports: [
@@ -18,12 +20,13 @@ import { AppService } from './app.service';
         username: 'postgres',
         password: 'astri',
         database: 'tarea4',
-        entities: [User, Task],
+        entities: [User, Task, Producto],
         synchronize: true,
     }),
     UsersModule, 
     TasksModule,
     AuthModule,
+    ProductoModule
   ],
   controllers: [SettingsController],
   providers: [AppService],

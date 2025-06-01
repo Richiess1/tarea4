@@ -1,8 +1,7 @@
-import { Controller, Post, Get, Param, Body, Put, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Put, Delete, UseGuards, Req, Res } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTasksDto } from './dto/create-tasks.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard) //protege el controllador, pide un TOKEN
@@ -14,8 +13,13 @@ export class TasksController {
     @Post()
     @ApiOperation({ summary: 'Crear una tarea' })
     @ApiResponse({ status: 201, description: 'Tarea creada correctamente' })
-    create(@Body() dto: CreateTasksDto): Promise<Task> {
-        return this.tasksService.createTask(dto.titulo, dto.userId);
+    async create(@Body() dto: { titulo: string }, @Req() req:any): Promise<Task> {
+        const userId = req.user.userId;
+        const tarea = await this.tasksService.createTask(dto.titulo, userId);
+        if (tarea.user && 'password' in tarea.user) {
+            delete (tarea.user as any).password;
+        }
+        return tarea;
     }
 
     @Get()
@@ -47,7 +51,15 @@ export class TasksController {
     @Delete(':id')
     @ApiOperation({ summary: 'Eliminar tarea por ID' })
     @ApiParam({ name:'id', description: 'ID de la Tarea' })
-    delete(@Param('id') id: string): Promise<void> {
-        return this.tasksService.deleteTask(+id);
+    async delete(@Param('id') id: string, @Req() req:any, @Res() res:any): Promise<void> {
+        const tarea = await this.tasksService.findById(+id);
+        if (!tarea) {
+            return res.status(404).json({ message: 'Tarea no encontrada' });
+        }
+        if (!tarea.user || tarea.user.id !== req.user.userId) {
+            return res.status(403).json({ message: 'Acción no permitida: solo puedes eliminar tus propias tareas.' });
+        }
+        await this.tasksService.deleteTask(+id);
+        return res.status(204).send();
     }
 }

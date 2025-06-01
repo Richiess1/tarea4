@@ -5,12 +5,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from 'src/users/users.module';
 import { TasksModule } from 'src/tasks/tasks.module';
+import { PassportModule } from '@nestjs/passport';
 
 //NO TOCAR
 @Module({
   imports: [
     UsersModule,
     TasksModule,
+    PassportModule,
     JwtModule.register({
       secret: 'clave_secreta',
       signOptions: { expiresIn: '1h' },
