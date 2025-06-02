@@ -1,4 +1,3 @@
-import { OrdenProducto } from "src/orden/ordenproducto.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
@@ -16,6 +15,4 @@ export class Producto {
     @Column()
     stock: number
 
-    @OneToMany(() => OrdenProducto, (ordenproducto) => ordenproducto.producto)
-    ordenesProductos: OrdenProducto[];
 }
